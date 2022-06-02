@@ -1,0 +1,30 @@
+﻿CREATE DATABASE UyduAlicisi
+GO
+USE UyduAlicisi
+GO
+CREATE TABLE Uydular (UyduID int IDENTITY PRIMARY KEY,
+					  UyduAdi varchar(15),
+					  Konum varchar(5),
+					  Derece decimal)
+GO
+CREATE TABLE Radyolar (RadyoID int IDENTITY PRIMARY KEY,
+					   RadyoAdi varchar(20),
+					   Frekans decimal,
+					   YayinAdi varchar(15),
+					   Dil varchar(10))
+GO
+CREATE TABLE Kanallar (KanalID int IDENTITY PRIMARY KEY,
+					   KanalAdi varchar(15),
+					   Frekans smallint,
+					   YayınAdi varchar(15),
+					   Dil varchar(10),
+					   HDmi bit,
+					   RadyoID int REFERENCES Radyolar (RadyoID))
+GO
+CREATE TABLE UyduKanal (UyduKanalID int IDENTITY PRIMARY KEY,
+						UyduID int REFERENCES Uydular (UyduID),
+						KanalID int REFERENCES Kanallar (KanalID))
+GO
+CREATE TABLE UyduRadyo (UyduRadyoID int IDENTITY PRIMARY KEY,
+						UyduID int REFERENCES Uydular (UyduID),
+						RadyoID int REFERENCES Radyolar (RadyoID))
